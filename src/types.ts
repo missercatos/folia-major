@@ -522,6 +522,74 @@ export const DEFAULT_PENDOLO_TUNING: PendoloTuning = {
   enableLineGlow: false,
 };
 
+export type HyprLayoutMode = 'dwindle' | 'master' | 'monocle';
+export type HyprWindowEnterStyle = 'popin' | 'slide' | 'fade';
+
+export interface HyprTuning {
+  layoutMode: HyprLayoutMode;
+  mfact: number;
+  gapsInner: number;
+  gapsOuter: number;
+  rounding: number;
+  borderSize: number;
+  inactiveDim: number;
+  glassOpacity: number;
+  blurStrength: number;
+  borderSpinSpeed: number;
+  enterStyle: HyprWindowEnterStyle;
+  transitionSpeed: number;
+  showPastCount: number;
+  showUpcomingCount: number;
+  showCoverWindow: boolean;
+  audioGlow: number;
+}
+
+export const HYPR_MFACT_MIN = 0.30;
+export const HYPR_MFACT_MAX = 0.80;
+export const HYPR_GAPS_INNER_MIN = 0;
+export const HYPR_GAPS_INNER_MAX = 64;
+export const HYPR_GAPS_OUTER_MIN = 0;
+export const HYPR_GAPS_OUTER_MAX = 120;
+export const HYPR_ROUNDING_MIN = 0;
+export const HYPR_ROUNDING_MAX = 48;
+export const HYPR_BORDER_SIZE_MIN = 0;
+export const HYPR_BORDER_SIZE_MAX = 8;
+export const HYPR_INACTIVE_DIM_MIN = 0;
+export const HYPR_INACTIVE_DIM_MAX = 1;
+export const HYPR_GLASS_OPACITY_MIN = 0;
+export const HYPR_GLASS_OPACITY_MAX = 0.9;
+export const HYPR_BLUR_STRENGTH_MIN = 0;
+export const HYPR_BLUR_STRENGTH_MAX = 3;
+export const HYPR_BORDER_SPIN_SPEED_MIN = 0;
+export const HYPR_BORDER_SPIN_SPEED_MAX = 2;
+export const HYPR_TRANSITION_SPEED_MIN = 0.3;
+export const HYPR_TRANSITION_SPEED_MAX = 2;
+export const HYPR_SHOW_PAST_COUNT_MIN = 0;
+export const HYPR_SHOW_PAST_COUNT_MAX = 4;
+export const HYPR_SHOW_UPCOMING_COUNT_MIN = 0;
+export const HYPR_SHOW_UPCOMING_COUNT_MAX = 6;
+export const HYPR_AUDIO_GLOW_MIN = 0;
+export const HYPR_AUDIO_GLOW_MAX = 1;
+
+export const DEFAULT_HYPR_TUNING: HyprTuning = {
+  layoutMode: 'dwindle',
+  mfact: 0.55,
+  gapsInner: 12,
+  gapsOuter: 28,
+  rounding: 18,
+  borderSize: 2,
+  inactiveDim: 0.35,
+  glassOpacity: 0.5,
+  blurStrength: 1.0,
+  borderSpinSpeed: 0.6,
+  enterStyle: 'popin',
+  transitionSpeed: 1.0,
+  showPastCount: 2,
+  showUpcomingCount: 3,
+  showCoverWindow: true,
+  audioGlow: 1.0,
+};
+
 export type SonnetOuterFrameMode = 'none' | 'frame' | 'full';
 
 export interface SonnetTuning {

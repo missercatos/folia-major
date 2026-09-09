@@ -59,6 +59,7 @@ export type SyncedVisualSettings = {
     latentBackgroundTuning?: unknown;
     monetTuning?: unknown;
     pendoloTuning?: unknown;
+    hyprTuning?: unknown;
     sonnetTuning?: unknown;
     temperaTuning?: unknown;
     urlBackgroundList?: unknown[];

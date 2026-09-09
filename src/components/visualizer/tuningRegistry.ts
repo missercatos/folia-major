@@ -5,6 +5,7 @@ import type {
     CladdaghTuning,
     DioramaTuning,
     FumeTuning,
+    HyprTuning,
     MonetTuning,
     PartitaTuning,
     PendoloTuning,
@@ -30,6 +31,7 @@ export interface VisualizerTuningMap {
     pendolo: PendoloTuning;
     sonnet: SonnetTuning;
     tempera: TemperaTuning;
+    hypr: HyprTuning;
 }
 
 export type VisualizerTuningMode = keyof VisualizerTuningMap;

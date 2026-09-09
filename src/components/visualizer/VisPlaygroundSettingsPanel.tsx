@@ -7,6 +7,7 @@ import {
     type ClassicTuning,
     type CladdaghTuning,
     type FumeTuning,
+    type HyprTuning,
     type MonetPortraitImage,
     type MonetTuning,
     type PartitaTuning,
@@ -103,6 +104,8 @@ interface VisPlaygroundSettingsPanelProps {
     onCladdaghTuningChange?: (patch: Partial<CladdaghTuning>) => void;
     pendoloTuning?: PendoloTuning;
     onPendoloTuningChange?: (patch: Partial<PendoloTuning>) => void;
+    hyprTuning?: HyprTuning;
+    onHyprTuningChange?: (patch: Partial<HyprTuning>) => void;
     sonnetTuning?: SonnetTuning;
     onSonnetTuningChange?: (patch: Partial<SonnetTuning>) => void;
     temperaTuning?: TemperaTuning;
@@ -367,6 +370,8 @@ const VisPlaygroundSettingsPanel: React.FC<VisPlaygroundSettingsPanelProps> = (p
         onMonetTuningChange,
         pendoloTuning,
         onPendoloTuningChange,
+        hyprTuning,
+        onHyprTuningChange,
         sonnetTuning,
         onSonnetTuningChange,
         temperaTuning,
@@ -722,6 +727,8 @@ const VisPlaygroundSettingsPanel: React.FC<VisPlaygroundSettingsPanelProps> = (p
                             onMonetTuningChange,
                             pendoloTuning,
                             onPendoloTuningChange,
+                            hyprTuning,
+                            onHyprTuningChange,
                             sonnetTuning,
                             onSonnetTuningChange,
                             temperaTuning,

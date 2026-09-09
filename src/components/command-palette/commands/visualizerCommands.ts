@@ -49,6 +49,7 @@ export const visualizerCommands: CommandPaletteCommand[] = [
     createVisualizerCommand('cappella', 'Visualizer: Cappella', 'Switch to cappella visualizer', ['cappella', '群唱']),
     createVisualizerCommand('diorama', 'Visualizer: Diorama', 'Switch to Diorama visualizer', ['diorama', '镜台', '切换到可视化：镜台', '切换到可视化镜台']),
     createVisualizerCommand('still', 'Visualizer: Still', 'Switch to the static low-resource visualizer', ['still', 'static', 'low resource', '静止', '静态', '低占用']),
+    createVisualizerCommand('hypr', 'Visualizer: Hypr', 'Switch to Hyprland tiling visualizer', ['tiling', 'dwindle', 'glass']),
     createToggleCommand('visualizer-toggle-random-per-song', 'visualizer', 'Random visualizer for every song', 'Toggle a random lyric animation mode whenever the song changes', ['random visualizer', 'random animation', 'per song', '随机歌词动画', '每首歌随机动画'], context => context.visualizer.toggleRandomVisualizerModePerSong()),
     {
         id: 'background-monet-full-overlay',

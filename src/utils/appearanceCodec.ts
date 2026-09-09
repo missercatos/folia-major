@@ -1,6 +1,7 @@
 import {
     DEFAULT_CLADDAGH_TUNING,
     DEFAULT_DIORAMA_TUNING,
+    DEFAULT_HYPR_TUNING,
     DEFAULT_LATENT_BACKGROUND_TUNING,
     DEFAULT_MONET_BACKGROUND_TUNING,
     DEFAULT_MONET_TUNING,
@@ -357,6 +358,43 @@ const decompressPendolo = (o: any): any => ({
     enableLineGlow: o.elg !== undefined ? o.elg : DEFAULT_PENDOLO_TUNING.enableLineGlow,
 });
 
+const compressHypr = (t: any): any => ({
+    lm: t.layoutMode,
+    mf: t.mfact,
+    gi: t.gapsInner,
+    go: t.gapsOuter,
+    rn: t.rounding,
+    bs: t.borderSize,
+    id: t.inactiveDim,
+    go2: t.glassOpacity,
+    bl: t.blurStrength,
+    bs2: t.borderSpinSpeed,
+    es: t.enterStyle,
+    ts: t.transitionSpeed,
+    spc: t.showPastCount,
+    suc: t.showUpcomingCount,
+    scw: t.showCoverWindow,
+    ag: t.audioGlow,
+});
+const decompressHypr = (o: any): any => ({
+    layoutMode: o.lm || DEFAULT_HYPR_TUNING.layoutMode,
+    mfact: o.mf !== undefined ? o.mf : DEFAULT_HYPR_TUNING.mfact,
+    gapsInner: o.gi !== undefined ? o.gi : DEFAULT_HYPR_TUNING.gapsInner,
+    gapsOuter: o.go !== undefined ? o.go : DEFAULT_HYPR_TUNING.gapsOuter,
+    rounding: o.rn !== undefined ? o.rn : DEFAULT_HYPR_TUNING.rounding,
+    borderSize: o.bs !== undefined ? o.bs : DEFAULT_HYPR_TUNING.borderSize,
+    inactiveDim: o.id !== undefined ? o.id : DEFAULT_HYPR_TUNING.inactiveDim,
+    glassOpacity: o.go2 !== undefined ? o.go2 : DEFAULT_HYPR_TUNING.glassOpacity,
+    blurStrength: o.bl !== undefined ? o.bl : DEFAULT_HYPR_TUNING.blurStrength,
+    borderSpinSpeed: o.bs2 !== undefined ? o.bs2 : DEFAULT_HYPR_TUNING.borderSpinSpeed,
+    enterStyle: o.es || DEFAULT_HYPR_TUNING.enterStyle,
+    transitionSpeed: o.ts !== undefined ? o.ts : DEFAULT_HYPR_TUNING.transitionSpeed,
+    showPastCount: o.spc !== undefined ? o.spc : DEFAULT_HYPR_TUNING.showPastCount,
+    showUpcomingCount: o.suc !== undefined ? o.suc : DEFAULT_HYPR_TUNING.showUpcomingCount,
+    showCoverWindow: o.scw !== undefined ? o.scw : DEFAULT_HYPR_TUNING.showCoverWindow,
+    audioGlow: o.ag !== undefined ? o.ag : DEFAULT_HYPR_TUNING.audioGlow,
+});
+
 const compressSonnet = (t: any): any => ({
     ci: t.cameraIntensity,
     tm: t.typographyMotion,
@@ -500,6 +538,7 @@ export const compressConfig = (config: any): string => {
     if (config.latentBackgroundTuning) minified.lbt = compressLatentBackground(config.latentBackgroundTuning);
     if (config.monetTuning) minified.mt = compressMonet(config.monetTuning);
     if (config.pendoloTuning) minified.pdt = compressPendolo(config.pendoloTuning);
+    if (config.hyprTuning) minified.hyt = compressHypr(config.hyprTuning);
     if (config.sonnetTuning) minified.snt = compressSonnet(config.sonnetTuning);
     if (config.temperaTuning) minified.tmp = compressTempera(config.temperaTuning);
     if (config.urlBackgroundList) minified.ubl = config.urlBackgroundList;
@@ -564,6 +603,7 @@ export const decompressConfig = (str: string): any => {
         || parsed.lff !== undefined
         || parsed.sfi !== undefined
         || parsed.pdt !== undefined
+        || parsed.hyt !== undefined
         || parsed.snt !== undefined
         || parsed.fst !== undefined
         // The now playing card's three keys. Listed like the rest so a hand-written JSON that only
@@ -623,6 +663,7 @@ export const decompressConfig = (str: string): any => {
         if (parsed.lbt) decompressed.latentBackgroundTuning = decompressLatentBackground(parsed.lbt);
         if (parsed.mt) decompressed.monetTuning = decompressMonet(parsed.mt);
         if (parsed.pdt) decompressed.pendoloTuning = decompressPendolo(parsed.pdt);
+        if (parsed.hyt) decompressed.hyprTuning = decompressHypr(parsed.hyt);
         if (parsed.snt) decompressed.sonnetTuning = decompressSonnet(parsed.snt);
         if (parsed.tmp) decompressed.temperaTuning = decompressTempera(parsed.tmp);
         if (parsed.ubl) decompressed.urlBackgroundList = parsed.ubl;
@@ -648,7 +689,7 @@ export const decompressConfig = (str: string): any => {
             'subtitleFontFallbackFamilies', 'visualizerTunings', 'classicTuning',
             'cadenzaTuning', 'partitaTuning', 'fumeTuning', 'claddaghTuning', 'cappellaTuning',
             'tiltTuning', 'dioramaTuning', 'monetBackgroundTuning', 'nomandBackgroundTuning', 'latentBackgroundTuning', 'monetTuning',
-            'pendoloTuning', 'sonnetTuning', 'temperaTuning',
+            'pendoloTuning', 'hyprTuning', 'sonnetTuning', 'temperaTuning',
             'urlBackgroundList', 'urlBackgroundSelectedId',
             'songThemeAutoSwitchEnabled', 'songThemeAutoGenerateEnabled', 'themeGenerationSource', 'followSystemTheme',
             'stageTrackPillMode', 'stageTrackPillTimeoutSec', 'stageTrackPillOnHome',

@@ -10,6 +10,7 @@ import {
     type CladdaghTuning,
     type DioramaTuning,
     type FumeTuning,
+    type HyprTuning,
     type Line,
     type MonetPortraitImage,
     type MonetTuning,
@@ -27,7 +28,7 @@ import type { VisualizerBackgroundConfig } from './backgrounds/definition';
 
 // src/components/visualizer/definition.ts
 // Shared contracts for discoverable visualizer modes.
-export type VisualizerTuningKind = 'none' | 'classic' | 'cadenza' | 'partita' | 'fume' | 'claddagh' | 'cappella' | 'tilt' | 'monet' | 'diorama' | 'pendolo' | 'sonnet' | 'tempera';
+export type VisualizerTuningKind = 'none' | 'classic' | 'cadenza' | 'partita' | 'fume' | 'claddagh' | 'cappella' | 'tilt' | 'monet' | 'diorama' | 'pendolo' | 'sonnet' | 'tempera' | 'hypr';
 
 export interface VisualizerSharedProps {
     currentTime: MotionValue<number>;
@@ -89,6 +90,8 @@ export interface VisualizerSharedProps {
     onMonetTuningChange?: (patch: Partial<MonetTuning>) => void;
     pendoloTuning?: PendoloTuning;
     onPendoloTuningChange?: (patch: Partial<PendoloTuning>) => void;
+    hyprTuning?: HyprTuning;
+    onHyprTuningChange?: (patch: Partial<HyprTuning>) => void;
     sonnetTuning?: SonnetTuning;
     onSonnetTuningChange?: (patch: Partial<SonnetTuning>) => void;
     temperaTuning?: TemperaTuning;
@@ -134,6 +137,8 @@ export interface VisualizerSettingsPanelProps {
     isLoadingMonetPortraitImage?: boolean;
     pendoloTuning?: PendoloTuning;
     onPendoloTuningChange?: (patch: Partial<PendoloTuning>) => void;
+    hyprTuning?: HyprTuning;
+    onHyprTuningChange?: (patch: Partial<HyprTuning>) => void;
     sonnetTuning?: SonnetTuning;
     onSonnetTuningChange?: (patch: Partial<SonnetTuning>) => void;
     temperaTuning?: TemperaTuning;
@@ -154,11 +159,13 @@ export interface VisualizerSettingsResetProps {
     resetDioramaTuning?: () => void;
     resetMonetTuning?: () => void;
     resetPendoloTuning?: () => void;
+    resetHyprTuning?: () => void;
     resetSonnetTuning?: () => void;
     resetTemperaTuning?: () => void;
     setDraftFumeTuning?: (tuning: FumeTuning) => void;
     setDraftCladdaghTuning?: (tuning: CladdaghTuning) => void;
     setDraftPendoloTuning?: (tuning: PendoloTuning) => void;
+    setDraftHyprTuning?: (tuning: HyprTuning) => void;
     setDraftSonnetTuning?: (tuning: SonnetTuning) => void;
     setDraftTemperaTuning?: (tuning: TemperaTuning) => void;
 }

@@ -82,6 +82,7 @@ export function buildVisualSettingsConfig(): Record<string, unknown> {
     latentBackgroundTuning: storeVisualizer.latentBackgroundTuning,
     monetTuning: storeVisualizer.monetTuning,
     pendoloTuning: storeVisualizer.pendoloTuning,
+    hyprTuning: storeVisualizer.hyprTuning,
     sonnetTuning: storeVisualizer.sonnetTuning,
     temperaTuning: storeVisualizer.temperaTuning,
     urlBackgroundList: storeVisualizer.urlBackgroundList,

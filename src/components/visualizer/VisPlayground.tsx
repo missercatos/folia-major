@@ -16,6 +16,7 @@ import {
     DEFAULT_MONET_TUNING,
     DEFAULT_NOMAND_BACKGROUND_TUNING,
     DEFAULT_PARTITA_TUNING,
+    DEFAULT_HYPR_TUNING,
     DEFAULT_PENDOLO_TUNING,
     DEFAULT_SONNET_TUNING,
     DEFAULT_TEMPERA_TUNING,
@@ -28,6 +29,7 @@ import {
     type ClassicTuning,
     type CladdaghTuning,
     type FumeTuning,
+    type HyprTuning,
     type LatentBackgroundTuning,
     type MonetBackgroundTuning,
     type MonetPortraitImage,
@@ -86,6 +88,7 @@ interface VisPlaygroundProps {
     dioramaTuning?: DioramaTuning;
     monetTuning?: MonetTuning;
     pendoloTuning?: PendoloTuning;
+    hyprTuning?: HyprTuning;
     sonnetTuning?: SonnetTuning;
     temperaTuning?: TemperaTuning;
     cappellaCustomEmojiImages?: CappellaEmojiImage[];
@@ -143,6 +146,8 @@ interface VisPlaygroundProps {
     onResetMonetTuning?: () => void;
     onPendoloTuningChange?: (patch: Partial<PendoloTuning>) => void;
     onResetPendoloTuning?: () => void;
+    onHyprTuningChange?: (patch: Partial<HyprTuning>) => void;
+    onResetHyprTuning?: () => void;
     onSonnetTuningChange?: (patch: Partial<SonnetTuning>) => void;
     onResetSonnetTuning?: () => void;
     onTemperaTuningChange?: (patch: Partial<TemperaTuning>) => void;
@@ -315,6 +320,7 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     dioramaTuning = DEFAULT_DIORAMA_TUNING,
     monetTuning = DEFAULT_MONET_TUNING,
     pendoloTuning = DEFAULT_PENDOLO_TUNING,
+    hyprTuning = DEFAULT_HYPR_TUNING,
     sonnetTuning = DEFAULT_SONNET_TUNING,
     temperaTuning = DEFAULT_TEMPERA_TUNING,
     cappellaCustomEmojiImages = [],
@@ -372,6 +378,8 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     onResetMonetTuning,
     onPendoloTuningChange,
     onResetPendoloTuning,
+    onHyprTuningChange,
+    onResetHyprTuning,
     onSonnetTuningChange,
     onResetSonnetTuning,
     onTemperaTuningChange,
@@ -433,6 +441,7 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     const [draftLatentBackgroundTuning, setDraftLatentBackgroundTuning] = useState<LatentBackgroundTuning>(latentBackgroundTuning);
     const [draftMonetTuning, setDraftMonetTuning] = useState<MonetTuning>(monetTuning);
     const [draftPendoloTuning, setDraftPendoloTuning] = useState<PendoloTuning>(pendoloTuning);
+    const [draftHyprTuning, setDraftHyprTuning] = useState<HyprTuning>(hyprTuning);
     const [draftSonnetTuning, setDraftSonnetTuning] = useState<SonnetTuning>(sonnetTuning);
     const [draftTemperaTuning, setDraftTemperaTuning] = useState<TemperaTuning>(temperaTuning);
     const [activeEditSection, setActiveEditSection] = useState<VisPlaygroundEditSection>(initialEditSection);
@@ -548,9 +557,10 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
         diorama: draftDioramaTuning,
         monet: draftMonetTuning,
         pendolo: draftPendoloTuning,
+        hypr: draftHyprTuning,
         sonnet: draftSonnetTuning,
         tempera: previewTemperaTuning,
-    }), [cadenzaTuning, cappellaTuning, draftClassicTuning, draftDioramaTuning, draftMonetTuning, draftPendoloTuning, draftSonnetTuning, draftTiltTuning, previewTemperaTuning, resolvedCladdaghTuning, resolvedFumeTuning, resolvedPartitaTuning]);
+    }), [cadenzaTuning, cappellaTuning, draftClassicTuning, draftDioramaTuning, draftHyprTuning, draftMonetTuning, draftPendoloTuning, draftSonnetTuning, draftTiltTuning, previewTemperaTuning, resolvedCladdaghTuning, resolvedFumeTuning, resolvedPartitaTuning]);
     const currentFontLabel = customFontLabel || customFontFamily || t('options.customFont');
     const fontStyleOptions: PresetOption<Theme['fontStyle'] | 'custom'>[] = useMemo(() => ([
         ...builtinFontOptions,
@@ -598,6 +608,7 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     useEffect(() => { setDraftLatentBackgroundTuning(latentBackgroundTuning); }, [latentBackgroundTuning]);
     useEffect(() => { setDraftMonetTuning(monetTuning); }, [monetTuning]);
     useEffect(() => { setDraftPendoloTuning(pendoloTuning); }, [pendoloTuning]);
+    useEffect(() => { setDraftHyprTuning(hyprTuning); }, [hyprTuning]);
     useEffect(() => { setDraftSonnetTuning(sonnetTuning); }, [sonnetTuning]);
     useEffect(() => { setDraftTemperaTuning(temperaTuning); }, [temperaTuning]);
     useEffect(() => { setActiveEditSection(initialEditSection); }, [initialEditSection]);
@@ -658,11 +669,13 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
             resetDioramaTuning: onResetDioramaTuning,
             resetMonetTuning: onResetMonetTuning,
             resetPendoloTuning: onResetPendoloTuning,
+            resetHyprTuning: onResetHyprTuning,
             resetSonnetTuning: onResetSonnetTuning,
             resetTemperaTuning: onResetTemperaTuning,
             setDraftFumeTuning,
             setDraftCladdaghTuning,
             setDraftPendoloTuning,
+            setDraftHyprTuning,
             setDraftSonnetTuning,
             setDraftTemperaTuning,
         });
@@ -1002,6 +1015,16 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
         }
     };
 
+    const handleHyprTuningDraft = (patch: Partial<HyprTuning>) => {
+        const next = { ...draftHyprTuning, ...patch };
+        setDraftHyprTuning(next);
+        if (!isDraggingSlider.current) {
+            onHyprTuningChange?.(patch);
+        } else {
+            pendingCommitRef.current = () => onHyprTuningChange?.(patch);
+        }
+    };
+
     const handleSonnetTuningDraft = (patch: Partial<SonnetTuning>) => {
         const next = { ...draftSonnetTuning, ...patch };
         setDraftSonnetTuning(next);
@@ -1285,6 +1308,8 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
                         onMonetTuningChange={handleMonetTuningDraft}
                         pendoloTuning={draftPendoloTuning}
                         onPendoloTuningChange={handlePendoloTuningDraft}
+                        hyprTuning={draftHyprTuning}
+                        onHyprTuningChange={handleHyprTuningDraft}
                         sonnetTuning={draftSonnetTuning}
                         onSonnetTuningChange={handleSonnetTuningDraft}
                         temperaTuning={draftTemperaTuning}

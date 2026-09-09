@@ -1,4 +1,4 @@
-import { DEFAULT_CADENZA_TUNING, DEFAULT_CAPPELLA_TUNING, DEFAULT_CLADDAGH_TUNING, DEFAULT_CLASSIC_TUNING, DEFAULT_DIORAMA_TUNING, DEFAULT_FUME_TUNING, DEFAULT_LATENT_BACKGROUND_TUNING, DEFAULT_MONET_BACKGROUND_TUNING, DEFAULT_MONET_TUNING, DEFAULT_NOMAND_BACKGROUND_TUNING, DEFAULT_PARTITA_TUNING, DEFAULT_PENDOLO_TUNING, DEFAULT_SONNET_TUNING, DEFAULT_TEMPERA_LAYER_IMAGE, DEFAULT_TEMPERA_TUNING, DEFAULT_TILT_TUNING, DIORAMA_PARTICLE_DENSITY_MAX, DIORAMA_PARTICLE_DENSITY_MIN, DIORAMA_PARTICLE_GLOW_INTENSITY_MAX, DIORAMA_PARTICLE_GLOW_INTENSITY_MIN, DIORAMA_PARTICLE_SIZE_MAX, DIORAMA_PARTICLE_SIZE_MIN, TEMPERA_MAX_LAYER_IMAGES, type CadenzaTuning, type CappellaAvatarSource, type CappellaTuning, type ClassicTuning, type CladdaghTuning, type DioramaTuning, type FumeTuning, type LatentBackgroundColorSource, type LatentBackgroundDisplayMode, type LatentBackgroundTuning, type MonetBackgroundLayout, type MonetBackgroundSource, type MonetBackgroundTuning, type MonetBackgroundWashColorMode, type MonetPortraitSource, type MonetTuning, type NomandBackgroundDitheringType, type NomandBackgroundEffect, type NomandBackgroundSource, type NomandBackgroundTuning, type PartitaTuning, type PendoloTuning, type SonnetTuning, type TemperaLayerImage, type TemperaTuning, type TiltTuning, type UrlBackgroundItem, type VisualizerBackgroundMode, type VisualizerFrameRate, type VisualizerMode } from '../types';
+import { DEFAULT_CADENZA_TUNING, DEFAULT_CAPPELLA_TUNING, DEFAULT_CLADDAGH_TUNING, DEFAULT_CLASSIC_TUNING, DEFAULT_DIORAMA_TUNING, DEFAULT_FUME_TUNING, DEFAULT_HYPR_TUNING, DEFAULT_LATENT_BACKGROUND_TUNING, DEFAULT_MONET_BACKGROUND_TUNING, DEFAULT_MONET_TUNING, DEFAULT_NOMAND_BACKGROUND_TUNING, DEFAULT_PARTITA_TUNING, DEFAULT_PENDOLO_TUNING, DEFAULT_SONNET_TUNING, DEFAULT_TEMPERA_LAYER_IMAGE, DEFAULT_TEMPERA_TUNING, DEFAULT_TILT_TUNING, DIORAMA_PARTICLE_DENSITY_MAX, DIORAMA_PARTICLE_DENSITY_MIN, DIORAMA_PARTICLE_GLOW_INTENSITY_MAX, DIORAMA_PARTICLE_GLOW_INTENSITY_MIN, DIORAMA_PARTICLE_SIZE_MAX, DIORAMA_PARTICLE_SIZE_MIN, HYPR_BORDER_SIZE_MAX, HYPR_BORDER_SIZE_MIN, HYPR_BORDER_SPIN_SPEED_MAX, HYPR_BORDER_SPIN_SPEED_MIN, HYPR_BLUR_STRENGTH_MAX, HYPR_BLUR_STRENGTH_MIN, HYPR_GAPS_INNER_MAX, HYPR_GAPS_INNER_MIN, HYPR_GAPS_OUTER_MAX, HYPR_GAPS_OUTER_MIN, HYPR_GLASS_OPACITY_MAX, HYPR_GLASS_OPACITY_MIN, HYPR_INACTIVE_DIM_MAX, HYPR_INACTIVE_DIM_MIN, HYPR_MFACT_MAX, HYPR_MFACT_MIN, HYPR_ROUNDING_MAX, HYPR_ROUNDING_MIN, HYPR_TRANSITION_SPEED_MAX, HYPR_TRANSITION_SPEED_MIN, HYPR_AUDIO_GLOW_MAX, HYPR_AUDIO_GLOW_MIN, HYPR_SHOW_PAST_COUNT_MAX, HYPR_SHOW_PAST_COUNT_MIN, HYPR_SHOW_UPCOMING_COUNT_MAX, HYPR_SHOW_UPCOMING_COUNT_MIN, TEMPERA_MAX_LAYER_IMAGES, type CadenzaTuning, type CappellaAvatarSource, type CappellaTuning, type ClassicTuning, type CladdaghTuning, type DioramaTuning, type FumeTuning, type HyprTuning, type LatentBackgroundColorSource, type LatentBackgroundDisplayMode, type LatentBackgroundTuning, type MonetBackgroundLayout, type MonetBackgroundSource, type MonetBackgroundTuning, type MonetBackgroundWashColorMode, type MonetPortraitSource, type MonetTuning, type NomandBackgroundDitheringType, type NomandBackgroundEffect, type NomandBackgroundSource, type NomandBackgroundTuning, type PartitaTuning, type PendoloTuning, type SonnetTuning, type TemperaLayerImage, type TemperaTuning, type TiltTuning, type UrlBackgroundItem, type VisualizerBackgroundMode, type VisualizerFrameRate, type VisualizerMode } from '../types';
 // 只做字符串校验，走 types/visualizerModes 而不是 registry：后者的 eager glob 会把 13 个
 // renderer（含 three.js）拉进来，而这里读的只是一个 localStorage 字符串。
 // mod 模式在启动时本来就看不到——bootstrap.tsx 的 restoreStoredModVisualizer 在 mods 注册完
@@ -313,6 +313,39 @@ export const readStoredPendoloTuning = (): PendoloTuning => {
         };
     } catch {
         return DEFAULT_PENDOLO_TUNING;
+    }
+};
+
+export const readStoredHyprTuning = (): HyprTuning => {
+    if (typeof window === 'undefined') {
+        return DEFAULT_HYPR_TUNING;
+    }
+
+    const saved = localStorage.getItem('hypr_tuning');
+    if (!saved) return DEFAULT_HYPR_TUNING;
+
+    try {
+        const parsed = JSON.parse(saved) as Partial<HyprTuning>;
+        return {
+            layoutMode: parsed.layoutMode === 'master' || parsed.layoutMode === 'monocle' ? parsed.layoutMode : 'dwindle',
+            mfact: resolvePendoloNumber(parsed.mfact, DEFAULT_HYPR_TUNING.mfact, HYPR_MFACT_MIN, HYPR_MFACT_MAX),
+            gapsInner: resolvePendoloNumber(parsed.gapsInner, DEFAULT_HYPR_TUNING.gapsInner, HYPR_GAPS_INNER_MIN, HYPR_GAPS_INNER_MAX),
+            gapsOuter: resolvePendoloNumber(parsed.gapsOuter, DEFAULT_HYPR_TUNING.gapsOuter, HYPR_GAPS_OUTER_MIN, HYPR_GAPS_OUTER_MAX),
+            rounding: resolvePendoloNumber(parsed.rounding, DEFAULT_HYPR_TUNING.rounding, HYPR_ROUNDING_MIN, HYPR_ROUNDING_MAX),
+            borderSize: resolvePendoloNumber(parsed.borderSize, DEFAULT_HYPR_TUNING.borderSize, HYPR_BORDER_SIZE_MIN, HYPR_BORDER_SIZE_MAX),
+            inactiveDim: resolvePendoloNumber(parsed.inactiveDim, DEFAULT_HYPR_TUNING.inactiveDim, HYPR_INACTIVE_DIM_MIN, HYPR_INACTIVE_DIM_MAX),
+            glassOpacity: resolvePendoloNumber(parsed.glassOpacity, DEFAULT_HYPR_TUNING.glassOpacity, HYPR_GLASS_OPACITY_MIN, HYPR_GLASS_OPACITY_MAX),
+            blurStrength: resolvePendoloNumber(parsed.blurStrength, DEFAULT_HYPR_TUNING.blurStrength, HYPR_BLUR_STRENGTH_MIN, HYPR_BLUR_STRENGTH_MAX),
+            borderSpinSpeed: resolvePendoloNumber(parsed.borderSpinSpeed, DEFAULT_HYPR_TUNING.borderSpinSpeed, HYPR_BORDER_SPIN_SPEED_MIN, HYPR_BORDER_SPIN_SPEED_MAX),
+            enterStyle: parsed.enterStyle === 'slide' || parsed.enterStyle === 'fade' ? parsed.enterStyle : 'popin',
+            transitionSpeed: resolvePendoloNumber(parsed.transitionSpeed, DEFAULT_HYPR_TUNING.transitionSpeed, HYPR_TRANSITION_SPEED_MIN, HYPR_TRANSITION_SPEED_MAX),
+            showPastCount: Math.round(resolvePendoloNumber(parsed.showPastCount, DEFAULT_HYPR_TUNING.showPastCount, HYPR_SHOW_PAST_COUNT_MIN, HYPR_SHOW_PAST_COUNT_MAX)),
+            showUpcomingCount: Math.round(resolvePendoloNumber(parsed.showUpcomingCount, DEFAULT_HYPR_TUNING.showUpcomingCount, HYPR_SHOW_UPCOMING_COUNT_MIN, HYPR_SHOW_UPCOMING_COUNT_MAX)),
+            showCoverWindow: typeof parsed.showCoverWindow === 'boolean' ? parsed.showCoverWindow : DEFAULT_HYPR_TUNING.showCoverWindow,
+            audioGlow: resolvePendoloNumber(parsed.audioGlow, DEFAULT_HYPR_TUNING.audioGlow, HYPR_AUDIO_GLOW_MIN, HYPR_AUDIO_GLOW_MAX),
+        };
+    } catch {
+        return DEFAULT_HYPR_TUNING;
     }
 };
 

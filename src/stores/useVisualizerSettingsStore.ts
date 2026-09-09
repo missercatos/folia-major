@@ -7,7 +7,7 @@
 
 import { create } from 'zustand';
 import { getVisualizerModeLabel } from '../components/visualizer/registry';
-import { DEFAULT_CADENZA_TUNING, DEFAULT_CAPPELLA_TUNING, DEFAULT_CLADDAGH_TUNING, DEFAULT_CLASSIC_TUNING, DEFAULT_DIORAMA_TUNING, DEFAULT_FUME_TUNING, DEFAULT_LATENT_BACKGROUND_TUNING, DEFAULT_MONET_BACKGROUND_TUNING, DEFAULT_MONET_TUNING, DEFAULT_NOMAND_BACKGROUND_TUNING, DEFAULT_PARTITA_TUNING, DEFAULT_PENDOLO_TUNING, DEFAULT_SONNET_TUNING, DEFAULT_TEMPERA_TUNING, DEFAULT_TILT_TUNING, type CadenzaTuning, type CappellaTuning, type CladdaghTuning, type ClassicTuning, type DioramaTuning, type FumeTuning, type LatentBackgroundTuning, type MonetBackgroundTuning, type MonetTuning, type NomandBackgroundTuning, type PartitaTuning, type PendoloTuning, type SonnetTuning, type TemperaTuning, type TiltTuning, type UrlBackgroundItem, type VisualizerBackgroundMode, type VisualizerFrameRate, type VisualizerMode } from '../types';
+import { DEFAULT_CADENZA_TUNING, DEFAULT_CAPPELLA_TUNING, DEFAULT_CLADDAGH_TUNING, DEFAULT_CLASSIC_TUNING, DEFAULT_DIORAMA_TUNING, DEFAULT_FUME_TUNING, DEFAULT_HYPR_TUNING, DEFAULT_LATENT_BACKGROUND_TUNING, DEFAULT_MONET_BACKGROUND_TUNING, DEFAULT_MONET_TUNING, DEFAULT_NOMAND_BACKGROUND_TUNING, DEFAULT_PARTITA_TUNING, DEFAULT_PENDOLO_TUNING, DEFAULT_SONNET_TUNING, DEFAULT_TEMPERA_TUNING, DEFAULT_TILT_TUNING, HYPR_BORDER_SIZE_MAX, HYPR_BORDER_SIZE_MIN, HYPR_BORDER_SPIN_SPEED_MAX, HYPR_BORDER_SPIN_SPEED_MIN, HYPR_BLUR_STRENGTH_MAX, HYPR_BLUR_STRENGTH_MIN, HYPR_GAPS_INNER_MAX, HYPR_GAPS_INNER_MIN, HYPR_GAPS_OUTER_MAX, HYPR_GAPS_OUTER_MIN, HYPR_GLASS_OPACITY_MAX, HYPR_GLASS_OPACITY_MIN, HYPR_INACTIVE_DIM_MAX, HYPR_INACTIVE_DIM_MIN, HYPR_MFACT_MAX, HYPR_MFACT_MIN, HYPR_ROUNDING_MAX, HYPR_ROUNDING_MIN, HYPR_TRANSITION_SPEED_MAX, HYPR_TRANSITION_SPEED_MIN, HYPR_AUDIO_GLOW_MAX, HYPR_AUDIO_GLOW_MIN, HYPR_SHOW_PAST_COUNT_MAX, HYPR_SHOW_PAST_COUNT_MIN, HYPR_SHOW_UPCOMING_COUNT_MAX, HYPR_SHOW_UPCOMING_COUNT_MIN, type CadenzaTuning, type CappellaTuning, type CladdaghTuning, type ClassicTuning, type DioramaTuning, type FumeTuning, type HyprTuning, type LatentBackgroundTuning, type MonetBackgroundTuning, type MonetTuning, type NomandBackgroundTuning, type PartitaTuning, type PendoloTuning, type SonnetTuning, type TemperaTuning, type TiltTuning, type UrlBackgroundItem, type VisualizerBackgroundMode, type VisualizerFrameRate, type VisualizerMode } from '../types';
 import { VISUALIZER_FRAME_RATE_STORAGE_KEY, setGlobalVisualizerFrameRate } from '../utils/frameRateLimiter';
 import { sanitizeUrlBackgroundItem, sanitizeUrlBackgroundList } from '../utils/urlBackground';
 import i18n from '../i18n/config';
@@ -16,7 +16,7 @@ import { buildStoredCappellaEmojiPack, clearCustomCappellaEmojiPack, isSupported
 import { buildStoredMonetBackgroundImage, clearMonetBackgroundImage, isSupportedMonetBackgroundFile, saveMonetBackgroundImage } from '../services/monetBackgroundImage';
 import { buildStoredMonetPortraitImage, clearMonetPortraitImage, isSupportedMonetPortraitFile, saveMonetPortraitImage } from '../services/monetPortraitImage';
 import { setStatusMessage } from './useStatusMessageStore';
-import { VISUALIZER_OPACITY_STORAGE_KEY, clampCladdaghEllipseTiltDeg, clampCladdaghFocusScaleRatio, clampCladdaghLetterSpacingOffset, clampCladdaghRadiusScale, clampClassicBreathingFloatMultiplier, clampClassicWordSpacing, clampFumeBackgroundObjectOpacity, clampFumeCameraSpeed, clampFumeGlowIntensity, clampFumeHeroScale, clampFumeTextHoldRatio, clampPartitaStagger, clampUnit, readStoredBackgroundOpacity, readStoredCadenzaTuning, readStoredCappellaTuning, readStoredCladdaghTuning, readStoredClassicTuning, readStoredDioramaTuning, readStoredFumeTuning, readStoredLatentBackgroundTuning, readStoredMonetBackgroundTuning, readStoredMonetTuning, readStoredNomandBackgroundTuning, readStoredPartitaTuning, readStoredPendoloTuning, readStoredSonnetTuning, readStoredTemperaTuning, readStoredTiltTuning, readStoredUrlBackgroundList, readStoredUrlBackgroundSelectedId, readStoredVisualizerBackgroundMode, readStoredVisualizerFrameRate, readStoredVisualizerMode, readStoredVisualizerOpacity, resolveCappellaAvatarSource, resolveFumeCameraTrackingMode, resolvePendoloNumber, resolveStoredDioramaTuning, resolveStoredLatentBackgroundTuning, resolveStoredMonetBackgroundTuning, resolveStoredMonetTuning, resolveStoredNomandBackgroundTuning, sanitizeTemperaLayerImages } from './visualizerSettingsPersistence';
+import { VISUALIZER_OPACITY_STORAGE_KEY, clampCladdaghEllipseTiltDeg, clampCladdaghFocusScaleRatio, clampCladdaghLetterSpacingOffset, clampCladdaghRadiusScale, clampClassicBreathingFloatMultiplier, clampClassicWordSpacing, clampFumeBackgroundObjectOpacity, clampFumeCameraSpeed, clampFumeGlowIntensity, clampFumeHeroScale, clampFumeTextHoldRatio, clampPartitaStagger, clampUnit, readStoredBackgroundOpacity, readStoredCadenzaTuning, readStoredCappellaTuning, readStoredCladdaghTuning, readStoredClassicTuning, readStoredDioramaTuning, readStoredFumeTuning, readStoredHyprTuning, readStoredLatentBackgroundTuning, readStoredMonetBackgroundTuning, readStoredMonetTuning, readStoredNomandBackgroundTuning, readStoredPartitaTuning, readStoredPendoloTuning, readStoredSonnetTuning, readStoredTemperaTuning, readStoredTiltTuning, readStoredUrlBackgroundList, readStoredUrlBackgroundSelectedId, readStoredVisualizerBackgroundMode, readStoredVisualizerFrameRate, readStoredVisualizerMode, readStoredVisualizerOpacity, resolveCappellaAvatarSource, resolveFumeCameraTrackingMode, resolvePendoloNumber, resolveStoredDioramaTuning, resolveStoredLatentBackgroundTuning, resolveStoredMonetBackgroundTuning, resolveStoredMonetTuning, resolveStoredNomandBackgroundTuning, sanitizeTemperaLayerImages } from './visualizerSettingsPersistence';
 import { getStoredBoolean, setStoredBoolean } from './storagePrimitives';
 import { useVisualizerAssetStore } from './useVisualizerAssetStore';
 
@@ -44,6 +44,7 @@ export type VisualizerSettingsState = {
     latentBackgroundTuning: LatentBackgroundTuning;
     monetTuning: MonetTuning;
     pendoloTuning: PendoloTuning;
+    hyprTuning: HyprTuning;
     sonnetTuning: SonnetTuning;
     temperaTuning: TemperaTuning;
     handleToggleDisableVisualizerVignette: (disable: boolean) => void;
@@ -86,6 +87,8 @@ export type VisualizerSettingsState = {
     handleResetMonetTuning: () => void;
     handleSetPendoloTuning: (patch: Partial<PendoloTuning>) => void;
     handleResetPendoloTuning: () => void;
+    handleSetHyprTuning: (patch: Partial<HyprTuning>) => void;
+    handleResetHyprTuning: () => void;
     handleSetSonnetTuning: (patch: Partial<SonnetTuning>) => void;
     handleResetSonnetTuning: () => void;
     handleSetTemperaTuning: (patch: Partial<TemperaTuning>) => void;
@@ -124,6 +127,7 @@ export const useVisualizerSettingsStore = create<VisualizerSettingsState>((set, 
     latentBackgroundTuning: readStoredLatentBackgroundTuning(),
     monetTuning: readStoredMonetTuning(),
     pendoloTuning: readStoredPendoloTuning(),
+    hyprTuning: readStoredHyprTuning(),
     sonnetTuning: readStoredSonnetTuning(),
     temperaTuning: readStoredTemperaTuning(),
     handleToggleDisableVisualizerVignette: (disable) => {
@@ -401,6 +405,38 @@ export const useVisualizerSettingsStore = create<VisualizerSettingsState>((set, 
         }
         set({ pendoloTuning: DEFAULT_PENDOLO_TUNING });
         setStatusMessage({ type: 'info', text: i18n.t('notifications.pendoloReset') });
+    },
+    handleSetHyprTuning: (patch: Partial<HyprTuning>) => {
+        const prev = get().hyprTuning;
+        const next: HyprTuning = {
+            layoutMode: patch.layoutMode === 'master' || patch.layoutMode === 'monocle' ? patch.layoutMode : prev.layoutMode,
+            mfact: resolvePendoloNumber(patch.mfact, prev.mfact, HYPR_MFACT_MIN, HYPR_MFACT_MAX),
+            gapsInner: resolvePendoloNumber(patch.gapsInner, prev.gapsInner, HYPR_GAPS_INNER_MIN, HYPR_GAPS_INNER_MAX),
+            gapsOuter: resolvePendoloNumber(patch.gapsOuter, prev.gapsOuter, HYPR_GAPS_OUTER_MIN, HYPR_GAPS_OUTER_MAX),
+            rounding: resolvePendoloNumber(patch.rounding, prev.rounding, HYPR_ROUNDING_MIN, HYPR_ROUNDING_MAX),
+            borderSize: resolvePendoloNumber(patch.borderSize, prev.borderSize, HYPR_BORDER_SIZE_MIN, HYPR_BORDER_SIZE_MAX),
+            inactiveDim: resolvePendoloNumber(patch.inactiveDim, prev.inactiveDim, HYPR_INACTIVE_DIM_MIN, HYPR_INACTIVE_DIM_MAX),
+            glassOpacity: resolvePendoloNumber(patch.glassOpacity, prev.glassOpacity, HYPR_GLASS_OPACITY_MIN, HYPR_GLASS_OPACITY_MAX),
+            blurStrength: resolvePendoloNumber(patch.blurStrength, prev.blurStrength, HYPR_BLUR_STRENGTH_MIN, HYPR_BLUR_STRENGTH_MAX),
+            borderSpinSpeed: resolvePendoloNumber(patch.borderSpinSpeed, prev.borderSpinSpeed, HYPR_BORDER_SPIN_SPEED_MIN, HYPR_BORDER_SPIN_SPEED_MAX),
+            enterStyle: patch.enterStyle === 'slide' || patch.enterStyle === 'fade' ? patch.enterStyle : prev.enterStyle,
+            transitionSpeed: resolvePendoloNumber(patch.transitionSpeed, prev.transitionSpeed, HYPR_TRANSITION_SPEED_MIN, HYPR_TRANSITION_SPEED_MAX),
+            showPastCount: Math.round(resolvePendoloNumber(patch.showPastCount, prev.showPastCount, HYPR_SHOW_PAST_COUNT_MIN, HYPR_SHOW_PAST_COUNT_MAX)),
+            showUpcomingCount: Math.round(resolvePendoloNumber(patch.showUpcomingCount, prev.showUpcomingCount, HYPR_SHOW_UPCOMING_COUNT_MIN, HYPR_SHOW_UPCOMING_COUNT_MAX)),
+            showCoverWindow: typeof patch.showCoverWindow === 'boolean' ? patch.showCoverWindow : prev.showCoverWindow,
+            audioGlow: resolvePendoloNumber(patch.audioGlow, prev.audioGlow, HYPR_AUDIO_GLOW_MIN, HYPR_AUDIO_GLOW_MAX),
+        };
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('hypr_tuning', JSON.stringify(next));
+        }
+        set({ hyprTuning: next });
+    },
+    handleResetHyprTuning: () => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('hypr_tuning', JSON.stringify(DEFAULT_HYPR_TUNING));
+        }
+        set({ hyprTuning: DEFAULT_HYPR_TUNING });
+        setStatusMessage({ type: 'info', text: i18n.t('notifications.hyprReset') });
     },
     handleSetSonnetTuning: (patch: Partial<SonnetTuning>) => {
         const prev = get().sonnetTuning;
@@ -809,6 +845,7 @@ export const selectVisualizerSettingsSnapshot = (state: VisualizerSettingsState)
     handleResetNomandBackgroundTuning: state.handleResetNomandBackgroundTuning,
     handleResetPartitaTuning: state.handleResetPartitaTuning,
     handleResetPendoloTuning: state.handleResetPendoloTuning,
+    handleResetHyprTuning: state.handleResetHyprTuning,
     handleResetSonnetTuning: state.handleResetSonnetTuning,
     handleResetTemperaTuning: state.handleResetTemperaTuning,
     handleResetTiltTuning: state.handleResetTiltTuning,
@@ -826,6 +863,7 @@ export const selectVisualizerSettingsSnapshot = (state: VisualizerSettingsState)
     handleSetNomandBackgroundTuning: state.handleSetNomandBackgroundTuning,
     handleSetPartitaTuning: state.handleSetPartitaTuning,
     handleSetPendoloTuning: state.handleSetPendoloTuning,
+    handleSetHyprTuning: state.handleSetHyprTuning,
     handleSetSonnetTuning: state.handleSetSonnetTuning,
     handleSetTemperaTuning: state.handleSetTemperaTuning,
     handleSetTiltTuning: state.handleSetTiltTuning,
@@ -847,6 +885,7 @@ export const selectVisualizerSettingsSnapshot = (state: VisualizerSettingsState)
     nomandBackgroundTuning: state.nomandBackgroundTuning,
     partitaTuning: state.partitaTuning,
     pendoloTuning: state.pendoloTuning,
+    hyprTuning: state.hyprTuning,
     randomVisualizerModePerSong: state.randomVisualizerModePerSong,
     sonnetTuning: state.sonnetTuning,
     temperaTuning: state.temperaTuning,

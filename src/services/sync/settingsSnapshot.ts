@@ -64,6 +64,7 @@ export const buildSyncedVisualSettings = (state: SyncableSettingsState): SyncedV
     latentBackgroundTuning: state.latentBackgroundTuning,
     monetTuning: state.monetTuning,
     pendoloTuning: state.pendoloTuning,
+    hyprTuning: state.hyprTuning,
     sonnetTuning: state.sonnetTuning,
     temperaTuning: state.temperaTuning,
     urlBackgroundList: state.urlBackgroundList,
@@ -129,6 +130,7 @@ export const applySyncedVisualSettings = (
     if (settings.latentBackgroundTuning !== undefined) state.handleSetLatentBackgroundTuning(settings.latentBackgroundTuning as Parameters<SyncableSettingsState['handleSetLatentBackgroundTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.monetTuning !== undefined) state.handleSetMonetTuning(settings.monetTuning as Parameters<SyncableSettingsState['handleSetMonetTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.pendoloTuning !== undefined) state.handleSetPendoloTuning(settings.pendoloTuning as Parameters<SyncableSettingsState['handleSetPendoloTuning']>[0]);
+    if (settings.visualizerTunings === undefined && settings.hyprTuning !== undefined) state.handleSetHyprTuning(settings.hyprTuning as Parameters<SyncableSettingsState['handleSetHyprTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.sonnetTuning !== undefined) state.handleSetSonnetTuning(settings.sonnetTuning as Parameters<SyncableSettingsState['handleSetSonnetTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.temperaTuning !== undefined) state.handleSetTemperaTuning(settings.temperaTuning as Parameters<SyncableSettingsState['handleSetTemperaTuning']>[0]);
     if (settings.urlBackgroundList !== undefined) state.handleSetUrlBackgroundList(settings.urlBackgroundList as Parameters<SyncableSettingsState['handleSetUrlBackgroundList']>[0]);

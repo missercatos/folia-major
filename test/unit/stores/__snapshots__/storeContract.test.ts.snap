@@ -46,6 +46,7 @@ exports[`store contract > keeps every localStorage key the stores read or write 
   "harmony_subtitle_background",
   "hide_taskbar_icon",
   "home_layout_style",
+  "hypr_tuning",
   "last_home_view_tab",
   "latent_background_tuning",
   "lattice_auto_focus_on_song_change",
