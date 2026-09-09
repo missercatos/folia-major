@@ -538,8 +538,7 @@ export interface HyprTuning {
   borderSpinSpeed: number;
   enterStyle: HyprWindowEnterStyle;
   transitionSpeed: number;
-  showPastCount: number;
-  showUpcomingCount: number;
+  maxWindows: number;
   showCoverWindow: boolean;
   audioGlow: number;
 }
@@ -564,10 +563,8 @@ export const HYPR_BORDER_SPIN_SPEED_MIN = 0;
 export const HYPR_BORDER_SPIN_SPEED_MAX = 2;
 export const HYPR_TRANSITION_SPEED_MIN = 0.3;
 export const HYPR_TRANSITION_SPEED_MAX = 2;
-export const HYPR_SHOW_PAST_COUNT_MIN = 0;
-export const HYPR_SHOW_PAST_COUNT_MAX = 4;
-export const HYPR_SHOW_UPCOMING_COUNT_MIN = 0;
-export const HYPR_SHOW_UPCOMING_COUNT_MAX = 6;
+export const HYPR_MAX_WINDOWS_MIN = 2;
+export const HYPR_MAX_WINDOWS_MAX = 16;
 export const HYPR_AUDIO_GLOW_MIN = 0;
 export const HYPR_AUDIO_GLOW_MAX = 1;
 
